@@ -1,21 +1,25 @@
-import { StrictMode } from 'react';
+import { StrictMode, useState } from 'react';
 import { render } from 'react-dom';
+import ThemeContext from './ThemeContext';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import SearchParams from './SearchParams';
 import Details from './Details';
 
 const App = () => {
+  const theme = useState('darkblue');
   return (
     <StrictMode>
-      <BrowserRouter>
-        <header>
-          <Link to="/">Adopt Me!</Link>
-        </header>
-        <Routes>
-          <Route path="/details/:id" element={<Details />} />
-          <Route path="/" element={<SearchParams />} />
-        </Routes>
-      </BrowserRouter>
+      <ThemeContext.Provider value={theme}>
+        <BrowserRouter>
+          <header>
+            <Link to="/">Adopt Me!</Link>
+          </header>
+          <Routes>
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/" element={<SearchParams />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeContext.Provider>
     </StrictMode>
   );
 };
